@@ -1,25 +1,25 @@
-# String Sorting
-### stringSort.py
+# Sort File Strings
+### sortStrings.py
 Sorts strings pulled from an executable file into categories useful for malware analysis.<br/>
 Works with both Linux and Windows.
 ## Usage
 ```
-Project Name 
-
-Usage: ./xbuild.sh [options] TARGET
-
-Required:
-  TARGET                            Architecture to build CC for
+./sortStrings [-h] [-f FILE] [-l LENGTH]
 
 Options:
-  -h, --help                        Show usage (this page)
-
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  Path/name of file to analyze
+  -l LENGTH, --min-length LENGTH
+                        Minimum length of strings to capture (Default=4)
 
 Examples:
-xbuild.sh i386
+python3 ./sortStrings.py --file=susfile
+sortStrings.py -f susfile -l 3
+strings susfile | ./sortStrings.py
+
 ```
 ## Additional Details
-stringSort.py uses regular expressions to sort an executables strings into the following categories:
+stringSort.py pulls the strings from a file if a filename is given, or strings can be piped in directly. Strings are sorted with regular expressions into the following categories:
 - IP addresses
 - URLs
 - Files/URLs (no http or www)
@@ -36,4 +36,4 @@ stringSort.py uses regular expressions to sort an executables strings into the f
 - "All Others" (anything unsorted)
 ## Issues & TODO
 - Ocassionaly missorts strings, but thats just life with regular expressions
-- Piping input in results in a whacky extra space between each line, for some reason
+- Piping input in input from *strings* causes an extra newline between each string, due to the way *strings* handles its output
